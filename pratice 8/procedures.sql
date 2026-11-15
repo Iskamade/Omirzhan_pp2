@@ -20,11 +20,9 @@ BEGIN
         curr_name := names[i];
         curr_phone := phones[i];
         
-        -- Простейшая валидация: если телефон короче 5 символов — пропускаем / выводим уведомление
         IF length(curr_phone) < 5 THEN
             RAISE NOTICE 'Некорректный номер у контакта: %, телефон: %', curr_name, curr_phone;
         ELSE
-            -- Делаем вставку или обновление
             INSERT INTO contacts(name, phone) VALUES(curr_name, curr_phone)
             ON CONFLICT DO NOTHING;
         END IF;

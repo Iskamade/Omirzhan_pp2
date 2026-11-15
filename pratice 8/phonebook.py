@@ -13,7 +13,6 @@ def search_pattern():
     conn = get_connection()
     if conn:
         with conn.cursor() as cur:
-            # Функции вызываются через SELECT
             cur.execute("SELECT * FROM get_contacts_by_pattern(%s);", (pattern,))
             rows = cur.fetchall()
             print(f"\n--- РЕЗУЛЬТАТЫ ПОИСКА ПО ПАТТЕРНУ '{pattern}' ---")
@@ -28,7 +27,6 @@ def upsert_user():
     if conn:
         with conn:
             with conn.cursor() as cur:
-                # Процедуры вызываются через CALL
                 cur.execute("CALL upsert_contact(%s, %s);", (name, phone))
         print("Контакт успешно добавлен / обновлен (Upsert)!")
         conn.close()
